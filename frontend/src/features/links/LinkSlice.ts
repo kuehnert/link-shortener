@@ -5,21 +5,25 @@ export interface Link {
   url: string;
   description: string;
   hits: number;
+  hidden: true;
+  icon: string;
 }
 
 interface InitialState {
-  value: number;
+  links: Link[];
 }
 
 export const initialState: InitialState = {
-  value: 0
+  links: []
 };
 
 export const slice = createSlice({
   name: "links",
   initialState,
   reducers: {
-    fetchLinks: state => {}
+    fetchLinks: state => {
+      state.links = [];
+    }
   }
 });
 
