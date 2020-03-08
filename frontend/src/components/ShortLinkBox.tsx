@@ -39,26 +39,23 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const ShortLink: React.FC<Props> = ({ shortname }) => {
+const ShortLinkBox: React.FC<Props> = ({ shortname }) => {
   const classes = useStyles();
-  state = {
-    open: false
-  };
 
-  const handleClick = text => {
+  const handleClick = (text: string) => {
     navigator.clipboard
       .writeText(text)
-      .then(() => this.setState({ open: true }))
+      .then(() => console.log("Done"))
       .catch(err => console.log("Error: ", err));
   };
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
+  // const handleClose = (event, reason) => {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
 
-    this.setState({ open: false });
-  };
+  //   this.setState({ open: false });
+  // };
 
   const url = `l.mso.onl/${shortname}`;
 
@@ -68,7 +65,7 @@ const ShortLink: React.FC<Props> = ({ shortname }) => {
         variant="contained"
         classes={{ root: classes.button, label: classes.label }}
         size="small"
-        onClick={() => this.handleClick(url)}
+        onClick={() => handleClick(url)}
       >
         {url}
         <CopyIcon className={classes.iconSmall} />
@@ -78,9 +75,9 @@ const ShortLink: React.FC<Props> = ({ shortname }) => {
           vertical: "bottom",
           horizontal: "left"
         }}
-        open={this.state.open}
+        open={true}
         autoHideDuration={1000}
-        onClose={this.handleClose}
+        // onClose={handleClose}
         ContentProps={{
           "aria-describedby": "message-id"
         }}
@@ -91,7 +88,7 @@ const ShortLink: React.FC<Props> = ({ shortname }) => {
             aria-label="Close"
             color="inherit"
             className={classes.close}
-            onClick={this.handleClose}
+            // onClick={handleClose}
           >
             <CloseIcon />
           </IconButton>
@@ -101,4 +98,4 @@ const ShortLink: React.FC<Props> = ({ shortname }) => {
   );
 };
 
-export default ShortLink;
+export default ShortLinkBox;

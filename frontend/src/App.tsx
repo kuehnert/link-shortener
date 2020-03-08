@@ -7,7 +7,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 import Routes from "Routes";
-import history from "./history";
+import history from "./myhistory";
 import store from "./store";
 
 const theme = createMuiTheme({

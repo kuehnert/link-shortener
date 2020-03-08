@@ -1,32 +1,33 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface Link {
-  name: string;
-  url: string;
+export interface ShortLink {
+  shortname: string;
+  title: string;
+  weburl: string;
   description: string;
   hits: number;
-  hidden: true;
+  hidden: boolean;
   icon: string;
 }
 
 interface InitialState {
-  links: Link[];
+  list: ShortLink[];
 }
 
 export const initialState: InitialState = {
-  links: []
+  list: []
 };
 
 export const slice = createSlice({
-  name: "links",
+  name: "shortlinks",
   initialState,
   reducers: {
-    fetchLinks: state => {
-      state.links = [];
+    fetchShortLinks: state => {
+      state.list = [];
     }
   }
 });
 
-export const { fetchLinks } = slice.actions;
+export const { fetchShortLinks } = slice.actions;
 
 export default slice.reducer;

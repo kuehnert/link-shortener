@@ -9,62 +9,66 @@ import {
   IconButton,
   Typography
 } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
+import {
+  Add as AddIcon,
+  Delete as DeleteIcon,
+  Edit as EditIcon
+} from "@material-ui/icons";
 import React from "react";
 import PageLink from "./PageLink";
-import ShortLink from "./ShortLink";
+import ShortLinkBox from "./ShortLinkBox";
+import history from "../myhistory";
+import { ShortLink } from "features/links/ShortLinkSlice";
 
-const CreatePageButton = ({ history }) => (
+const CreateShortLinkButton = () => (
   <Fab
     color="secondary"
     aria-label="Add"
     className="Button"
     onClick={() => {
-      history.push("/pages/new");
+      history.push("/shortlinks/new");
     }}
   >
     <AddIcon />
   </Fab>
 );
 
-const PagesList: React.FC = () => {
-  function onPageDelete({ shortname }) {
-    this.props.deletePage({ shortname });
+const ShortLinksList: React.FC = () => {
+  function onShortLinkDelete({ shortname }: ShortLink) {
+    // deleteShortLink({ shortname });
   }
 
-  function onPageEdit({ shortname }) {
-    this.props.history.push(`/pages/${shortname}/edit`);
+  function onShortLinkEdit({ shortname }: ShortLink) {
+    history.push(`/shortlinks/${shortname}/edit`);
   }
 
-  const renderButtons = page => {
+  const renderButtons = (shortlink: ShortLink) => {
     return (
       <CardActions className="CardActions" disableSpacing>
         <IconButton
           size="small"
           color="secondary"
-          onClick={() => this.onPageEdit(page)}
+          onClick={() => onShortLinkEdit(shortlink)}
         >
           <EditIcon />
         </IconButton>
         <IconButton
           size="small"
           color="primary"
-          onClick={() => this.onPageDelete(page)}
+          onClick={() => onShortLinkDelete(shortlink)}
         >
           <DeleteIcon />
         </IconButton>
         <Typography className="hits" color="textSecondary">
-          {page.hits} hit
-          {page.hits > 1 && "s"}
+          {shortlink.hits} hit
+          {shortlink.hits > 1 && "s"}
         </Typography>
       </CardActions>
     );
   };
 
-  const renderPage = (page, currentUser) => {
-    const { title, shortname, weburl, description } = page;
+  const renderShortLink = (shortlink: ShortLink) => {
+    const { title, shortname, weburl, description } = shortlink;
     const avatar = (
       <Avatar
         src={`https://besticon-demo.herokuapp.com/icon?url=${weburl}&size=32..128..256`}
@@ -73,7 +77,7 @@ const PagesList: React.FC = () => {
     );
 
     return (
-      <Card key={shortname} className="PageCard">
+      <Card key={shortname} className="ShortLinkCard">
         <CardHeader
           className="CardHeader"
           title={title}
@@ -82,34 +86,35 @@ const PagesList: React.FC = () => {
         />
 
         <CardContent className="CardContent">
-          <PageLink page={page} />
+          <PageLink shortlink={shortlink} />
 
-          <ShortLink shortname={shortname} />
+          <ShortLinkBox shortname={shortname} />
         </CardContent>
 
-        {currentUser && this.renderButtons(page)}
+        {false && renderButtons(shortlink)}
       </Card>
     );
   };
 
-  function renderPages(currentUser) {
-    return this.props.data.listPages.items
-      .sort((a, b) => a.title.localeCompare(b.title))
-      .map(page => this.renderPage(page, currentUser));
-  }
+  // const renderShortLinks = () => {
+  //   return props.data.listShortLinks.items
+  //     .sort((a, b) => a.title.localeCompare(b.title))
+  //     .map(shortlink => renderShortLink(shortlink));
+  // };
 
-  const webPages = this.props.data.listPages && this.props.data.listPages.items;
+  // const webShortLinks =
+  //   props.data.listShortLinks && props.data.listShortLinks.items;
 
-  if (!webPages) {
-    return <div>Loading...</div>;
-  }
+  // if (!webShortLinks) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
-      {this.renderPages(data.currentUser)}
-      {data.currentUser && <CreatePageButton history={this.props.history} />}
+      {/* {renderShortLinks()} */}
+      {false && <CreateShortLinkButton />}
     </Grid>
   );
 };
 
-export default PagesList;
+export default ShortLinksList;

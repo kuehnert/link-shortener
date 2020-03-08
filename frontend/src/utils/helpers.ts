@@ -1,4 +1,4 @@
-export function isValidShortname(str) {
+export function isValidShortname(str: string) {
   const pattern = new RegExp("^[a-z0-9]+$");
 
   return pattern.test(str);
@@ -14,6 +14,6 @@ const URLPattern = new RegExp(
   "i"
 ); // fragment locator
 
-export function isValidURL(str) {
+export function isValidURL(str: string) {
   return URLPattern.test(str);
 }
