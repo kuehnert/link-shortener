@@ -1,15 +1,42 @@
-import {IgnoreProperty} from "@tsed/common";
-import {Description} from "@tsed/swagger";
-import {UserCreation} from "./UserCreation";
+import { Email, Property, PropertyType, Required } from '@tsed/common';
+import { Model, ObjectID, Unique } from '@tsed/mongoose';
 
-export class User extends UserCreation {
-  @Description("Database assigned id")
-  _id: string;
+export const userAttributes = [
+  'firstname',
+  'lastname',
+  'email',
+];
 
-  @IgnoreProperty()
+export interface BaseUser {
+  firstname: string;
+  lastname: string;
+  email: string;
   password: string;
+}
 
-  verifyPassword(password: string) {
-    return this.password === password;
-  }
+@Model()
+export default class User {
+  @ObjectID('id')
+  _id!: string;
+
+  @Property()
+  @Required()
+  firstname!: string;
+
+  @Property()
+  @Required()
+  lastname!: string;
+
+  @Email()
+  @Required()
+  @Unique()
+  email!: string;
+
+  @Property()
+  @Required()
+  password!: string;
+
+  @PropertyType(String)
+  @Required()
+  tokens: string[] = [];
 }
