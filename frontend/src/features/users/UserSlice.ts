@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { decode } from "jsonwebtoken";
 import lsApi from "../../apis/lsApi";
-import { AppThunk } from "../../store";
+import { AppThunk, RootState } from "../../store";
 import authHeader from "../../utils/authHeader";
 import { setAlert } from "../globals/GlobalSlice";
 
@@ -123,8 +123,10 @@ const userSlice = createSlice({
         state.user = null;
         state.isLoggedIn = false;
         state.error = null;
-        state.isRequesting = false;
+      } else {
+        state.error = action.payload.message;
       }
+      state.isRequesting = false;
     }
   }
 });
@@ -153,7 +155,12 @@ export const login = (values: LoginValues): AppThunk => async dispatch => {
     localStorage.setItem("token", token);
   } catch ({ response }) {
     dispatch(
-      requestFailed({ resourceType: "users", resources: [], ...response })
+      requestFailed({
+        resourceType: "users",
+        resources: [],
+        status: response.status,
+        message: response.message
+      })
     );
     dispatch(
       setAlert({
@@ -206,8 +213,20 @@ export const signUp = (values: SignUpValues): AppThunk => async dispatch => {
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("token", token);
   } catch ({ response }) {
+    // dispatch(
+    //   requestFailed({
+    //     resourceType: "users",
+    //     resources: [],
+    //     status: response.status,
+    //     message: response.message
+    //   })
+    // );
+
     dispatch(
-      requestFailed({ resourceType: "users", resources: [], ...response })
+      setAlert({
+        type: "error",
+        message: `Fehler beim Anlegen des Kontos. ${response.status} ${response.message}`
+      })
     );
     return;
   }
@@ -216,7 +235,8 @@ export const signUp = (values: SignUpValues): AppThunk => async dispatch => {
   dispatch(
     setAlert({
       type: "success",
-      message: "Ihr Konto wurde erfolgreich erstellt. Willkommen bei ls!"
+      message:
+        "Ihr Konto wurde erfolgreich erstellt. Willkommen beim Link Shortener!"
     })
   );
 };
@@ -233,10 +253,20 @@ export const updateUser = (values: User): AppThunk => async dispatch => {
     localStorage.setItem("user", JSON.stringify(user));
   } catch ({ response }) {
     dispatch(
-      requestFailed({ resourceType: "users", resources: [], ...response })
+      requestFailed({
+        resourceType: "users",
+        resources: [],
+        status: response.status,
+        message: response.message
+      })
     );
     return;
   }
 
   dispatch(updateUserSuccess(user));
 };
+
+/**
+ * SELECTORS
+ */
+export const getUser = (state: RootState) => state.users.user;

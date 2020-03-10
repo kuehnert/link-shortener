@@ -8,7 +8,7 @@ import userReducer from "./features/users/UserSlice";
 
 export const rootReducer = combineReducers({
   counter: counterReducer,
-  global: globalReducer,
+  globals: globalReducer,
   links: shortLinkReducer,
   users: userReducer
 });

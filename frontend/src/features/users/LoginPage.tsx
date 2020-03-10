@@ -3,7 +3,7 @@ import {
   Button,
   Grid,
   Link,
-  Paper,
+  Container,
   Theme,
   Typography
 } from "@material-ui/core";
@@ -30,7 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(8),
       display: "flex",
       flexDirection: "column",
-      alignItems: "center"
+      alignItems: "center",
+      maxWidth: 600,
+      margin: "auto"
     },
     avatar: {
       margin: theme.spacing(1),
@@ -57,7 +59,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <Paper className={classes.paper}>
+    <Container className={classes.paper}>
       <Avatar className={classes.avatar}>
         <LockOutlinedIcon />
       </Avatar>
@@ -76,17 +78,16 @@ const LoginPage: React.FC = () => {
             <Field
               name="email"
               label="E-Mail"
-              placeholder="lehrer.lempel@marienschule.com"
+              fullWidth
               component={TextField}
             />
             <Field
               name="password"
               label="Passwort"
               type="password"
+              fullWidth
               component={TextField}
             />
-
-            {/* <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Angemeldet bleiben" /> */}
 
             <Button
               type="submit"
@@ -114,7 +115,7 @@ const LoginPage: React.FC = () => {
           </Link>
         </Grid>
       </Grid>
-    </Paper>
+    </Container>
   );
 };
 

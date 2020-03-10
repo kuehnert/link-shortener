@@ -43,6 +43,8 @@ export default class UserService {
 
   // CREATE
   async create(values: BaseUser): Promise<User> {
+    console.log('CREATE values:', values);
+
     const user = new this.User(values);
     user.password = await hashPassword(values.password);
     await user.save();

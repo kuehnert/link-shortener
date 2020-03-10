@@ -19,10 +19,21 @@ const rootDir = __dirname;
   acceptMimes: ["application/json"],
   httpPort: process.env.PORT || 5000,
   httpsPort: false,
+  ajv: {
+    errorFormat: error =>
+      `At ${error.modelName}${error.dataPath}, value '${error.data}' ${error.message}`,
+    options: { verbose: true }
+  },
   logger: {
     debug: false,
     logRequest: true,
-    requestFields: ["reqId", "method", "url", "query", "params", "duration"]
+    requestFields: [
+      "duration",
+      "method",
+      "params",
+      "query",
+      "url"
+    ]
   },
   mount: {
     "/rest": join(rootDir, "controllers/*.ts")

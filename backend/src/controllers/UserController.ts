@@ -40,8 +40,8 @@ export class UserController {
   // CREATE TEACHER
   @Post("/")
   async createUser(
-    @BodyParams() newUser: User
-  ): Promise<{ user: UserSafe; token: string }> {
+    @BodyParams() newUser: BaseUser
+  ): Promise<{ user: User; token: string }> {
     $log.debug("newUser:", newUser);
 
     if ((await this.userService.countUsers()) !== 0) {
