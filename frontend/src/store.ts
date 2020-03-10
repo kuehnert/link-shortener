@@ -4,11 +4,13 @@ import { ThunkAction } from "redux-thunk";
 import counterReducer from "./features/counter/CounterSlice";
 import shortLinkReducer from "./features/links/ShortLinkSlice";
 import globalReducer from "./features/globals/GlobalSlice";
+import userReducer from "./features/users/UserSlice";
 
 export const rootReducer = combineReducers({
   counter: counterReducer,
   global: globalReducer,
-  shortlinks: shortLinkReducer
+  links: shortLinkReducer,
+  users: userReducer
 });
 
 const store = configureStore({

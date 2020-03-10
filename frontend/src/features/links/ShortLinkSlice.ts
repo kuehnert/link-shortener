@@ -7,7 +7,7 @@ export interface ShortLink {
   description: string;
   hits: number;
   hidden: boolean;
-  icon: string;
+  icon: string | null;
 }
 
 interface InitialState {
@@ -23,7 +23,17 @@ export const slice = createSlice({
   initialState,
   reducers: {
     fetchShortLinks: state => {
-      state.list = [];
+      state.list = [
+        {
+          shortname: "home",
+          title: "Marienschule Homepage",
+          weburl: "https://www.marienschule.com",
+          description: "Unsere Homepage",
+          hits: 0,
+          hidden: false,
+          icon: null
+        }
+      ];
     }
   }
 });

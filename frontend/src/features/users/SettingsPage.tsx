@@ -1,0 +1,143 @@
+import { Button, Container, FormHelperText, Theme } from "@material-ui/core";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
+import { ErrorMessage, Field, Form, Formik, FormikErrors } from "formik";
+import { TextField } from "formik-material-ui";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import history from "../../myhistory";
+import { User, updateUser, defaultUser } from "./UserSlice";
+import Loading from "../../components/Loading";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      marginTop: theme.spacing(8),
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
+    },
+    form: {
+      width: "100%", // Fix IE 11 issue.
+      marginTop: theme.spacing(1)
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2)
+    },
+    fieldError: {
+      border: "2px solid #FF6565"
+    }
+  })
+);
+
+const validate = (
+  values: User
+): void | object | Promise<FormikErrors<User>> => {
+  const errors: { [key: string]: string } = {};
+
+  if (!values.firstname) {
+    errors.firstname = "Notwendige Angabe";
+  }
+
+  if (!values.lastname) {
+    errors.lastname = "Notwendige Angabe";
+  }
+
+  if (!values.email) {
+    errors.email = "Notwendige Angabe";
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = "Ungültige E-Mail-Adresse";
+  }
+
+  return errors;
+};
+
+const SettingsPage: React.FC = () => {
+  const { user, error } = useSelector((state: RootState) => state.users);
+  const dispatch = useDispatch();
+  const classes = useStyles();
+  const initialValues = { ...defaultUser, ...user };
+
+  const handleSubmit = async (values: User) => {
+    // await dispatch(updateUser(values));
+    // history.push("/terms");
+  };
+
+  if (user == null) {
+    return <Loading />;
+  }
+
+  return (
+    <Container component="main" maxWidth="xs" className={classes.paper}>
+      {error && <FormHelperText>{error}</FormHelperText>}
+
+      <Formik
+        onSubmit={handleSubmit}
+        initialValues={initialValues}
+        validate={validate}
+      >
+        {({ touched, isSubmitting }) => (
+          <Form className={classes.form}>
+            <Field
+              name="firstname"
+              label="Vorname"
+              placeholder="Wilhelm"
+              component={TextField}
+            />
+            <ErrorMessage name="firstname" />
+
+            <Field
+              name="lastname"
+              label="Nachname"
+              placeholder="Lempel"
+              component={TextField}
+            />
+            <ErrorMessage name="lastname" />
+
+            <Field
+              name="email"
+              label="E-Mail"
+              placeholder="lehrer.lempel@busch-schule.de"
+              component={TextField}
+              autoComplete="off"
+            />
+            <ErrorMessage name="email" />
+
+            {/*
+            <Field
+              name="password"
+              label="Altes Passwort"
+              type="password"
+              component={TextField}
+              autoComplete="new-password"
+            />
+            <ErrorMessage name="password" />
+
+            <Field
+              name="newPassword"
+              label="Neues Passwort"
+              type="password"
+              component={TextField}
+              autoComplete="new-password"
+            />
+            <ErrorMessage name="newPassword" />
+            */}
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={!touched || isSubmitting}
+            >
+              Speichern
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    </Container>
+  );
+};
+
+export default SettingsPage;

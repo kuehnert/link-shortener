@@ -14,11 +14,13 @@ import {
   Delete as DeleteIcon,
   Edit as EditIcon
 } from "@material-ui/icons";
-import React from "react";
-import PageLink from "./PageLink";
-import ShortLinkBox from "./ShortLinkBox";
-import history from "../myhistory";
-import { ShortLink } from "features/links/ShortLinkSlice";
+import React, { useEffect } from "react";
+import PageLink from "../../components/PageLink";
+import ShortLinkBox from "../../components/ShortLinkBox";
+import history from "../../myhistory";
+import { ShortLink, fetchShortLinks } from "features/links/ShortLinkSlice";
+import { RootState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
 
 const CreateShortLinkButton = () => (
   <Fab
@@ -33,7 +35,16 @@ const CreateShortLinkButton = () => (
   </Fab>
 );
 
-const ShortLinksList: React.FC = () => {
+const ShortLinksPage: React.FC = () => {
+  const dispatch = useDispatch();
+  const list = useSelector((state: RootState) => state.links.list);
+
+  useEffect(() => {
+    console.log("Loading links");
+
+    dispatch(fetchShortLinks());
+  }, []);
+
   function onShortLinkDelete({ shortname }: ShortLink) {
     // deleteShortLink({ shortname });
   }
@@ -96,11 +107,9 @@ const ShortLinksList: React.FC = () => {
     );
   };
 
-  // const renderShortLinks = () => {
-  //   return props.data.listShortLinks.items
-  //     .sort((a, b) => a.title.localeCompare(b.title))
-  //     .map(shortlink => renderShortLink(shortlink));
-  // };
+  const renderShortLinks = () => {
+    return list.map(shortlink => renderShortLink(shortlink));
+  };
 
   // const webShortLinks =
   //   props.data.listShortLinks && props.data.listShortLinks.items;
@@ -111,10 +120,11 @@ const ShortLinksList: React.FC = () => {
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
-      {/* {renderShortLinks()} */}
+      {renderShortLinks()}
+
       {false && <CreateShortLinkButton />}
     </Grid>
   );
 };
 
-export default ShortLinksList;
+export default ShortLinksPage;
