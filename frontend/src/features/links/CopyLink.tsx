@@ -1,11 +1,10 @@
-import { IconButton, Snackbar, Button } from "@material-ui/core";
+import { Button, IconButton, Snackbar, Theme } from "@material-ui/core";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 import {
   Close as CloseIcon,
   FileCopyOutlined as CopyIcon
 } from "@material-ui/icons";
-import React from "react";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
-import { Theme } from "@material-ui/core";
+import React, { useState } from "react";
 
 export interface Props {
   shortname: string;
@@ -39,23 +38,27 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const ShortLinkBox: React.FC<Props> = ({ shortname }) => {
+const CopyLink: React.FC<Props> = ({ shortname }) => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
 
   const handleClick = (text: string) => {
     navigator.clipboard
       .writeText(text)
-      .then(() => console.log("Done"))
+      .then(() => setOpen(true))
       .catch(err => console.log("Error: ", err));
   };
 
-  // const handleClose = (event, reason) => {
-  //   if (reason === "clickaway") {
-  //     return;
-  //   }
+  const handleClose = (
+    _: React.MouseEvent<HTMLAnchorElement> | React.SyntheticEvent,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
-  //   this.setState({ open: false });
-  // };
+    setOpen(false);
+  };
 
   const url = `l.mso.onl/${shortname}`;
 
@@ -70,14 +73,15 @@ const ShortLinkBox: React.FC<Props> = ({ shortname }) => {
         {url}
         <CopyIcon className={classes.iconSmall} />
       </Button>
+
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "left"
         }}
-        open={true}
-        autoHideDuration={1000}
-        // onClose={handleClose}
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
         ContentProps={{
           "aria-describedby": "message-id"
         }}
@@ -88,7 +92,7 @@ const ShortLinkBox: React.FC<Props> = ({ shortname }) => {
             aria-label="Close"
             color="inherit"
             className={classes.close}
-            // onClick={handleClose}
+            onClick={handleClose}
           >
             <CloseIcon />
           </IconButton>
@@ -98,4 +102,4 @@ const ShortLinkBox: React.FC<Props> = ({ shortname }) => {
   );
 };
 
-export default ShortLinkBox;
+export default CopyLink;

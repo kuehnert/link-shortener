@@ -4,10 +4,9 @@ import { ErrorMessage, Field, Form, Formik, FormikErrors } from "formik";
 import { TextField } from "formik-material-ui";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import history from "../../myhistory";
-import { User, updateUser, defaultUser } from "./UserSlice";
 import Loading from "../../components/Loading";
+import { RootState } from "../../store";
+import { defaultUser, User } from "./UserSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

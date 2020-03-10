@@ -1,16 +1,15 @@
+import { IconButton, Theme } from "@material-ui/core";
 import MUIAppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { Menu as MenuIcon } from "@material-ui/icons";
+import { getUser } from "features/users/UserSlice";
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SignOutButton from "./SignOutButton";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
-import { Theme, IconButton } from "@material-ui/core";
-import { getUser } from "features/users/UserSlice";
-import { RootState } from "../store";
-import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

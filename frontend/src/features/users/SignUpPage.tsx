@@ -1,19 +1,17 @@
 import {
   Avatar,
+  Container,
   FormHelperText,
   Grid,
   Link,
-  Paper,
   Theme,
-  Typography,
-  Container
+  Typography
 } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
-import history from "../../myhistory";
 import { RootState } from "../../store";
 import UserForm from "./UserForm";
 import { signUp, SignUpValues } from "./UserSlice";

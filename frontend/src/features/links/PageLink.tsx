@@ -10,13 +10,9 @@ const ShortLinkLink: React.FC<Props> = ({ shortlink }) => {
   const { weburl } = shortlink;
   const formattedURL = weburl.replace(/^(https:\/\/)?(www\.)?|\/.*$/g, "");
 
-  const handleClick = () => {
-    console.log("Click! :)");
-  };
-
   return (
-    <Typography className="ShortLinkLink">
-      <a href={weburl} target="new" onClick={handleClick}>
+    <Typography className="ShortLinkLink" align="center">
+      <a href={weburl} target="new">
         {formattedURL}
       </a>
     </Typography>
