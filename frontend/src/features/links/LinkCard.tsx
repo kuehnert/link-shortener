@@ -31,9 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
     card: {
       margin: theme.spacing(1),
       width: "280px",
+      transition: "transform .5s, box-shadow .5s",
       "&:hover": {
         backgroundColor: theme.palette.grey[100],
-        boxShadow: "6px 6px 12px 0px rgba(0,0,0,0.4)"
+        boxShadow: "6px 6px 12px 0px rgba(0,0,0,0.4)",
+        transform: "translateX(-4px) translateY(-4px) rotateZ(-5deg)"
       }
     },
     header: {
