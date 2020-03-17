@@ -36,7 +36,7 @@ const rootDir = __dirname;
     ]
   },
   mount: {
-    "/rest": join(rootDir, "controllers/*.ts")
+    "/api": join(rootDir, "controllers/*.ts")
   },
   mongoose: {
     url: process.env.MONGODB_URL,

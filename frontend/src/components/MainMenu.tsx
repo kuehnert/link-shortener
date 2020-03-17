@@ -1,10 +1,9 @@
-import React from "react";
-import { Menu, MenuItem, IconButton } from "@material-ui/core";
-import { Menu as MenuIcon } from "@material-ui/icons";
+import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import { Theme } from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { Menu as MenuIcon } from "@material-ui/icons";
 import { repairShortLinks } from "features/links/ShortLinkSlice";
+import React from "react";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles(() =>
   createStyles({

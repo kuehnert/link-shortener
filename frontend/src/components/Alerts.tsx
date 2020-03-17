@@ -1,14 +1,12 @@
-import React from "react";
-import { Color } from "@material-ui/lab/Alert";
 import { Snackbar } from "@material-ui/core";
-import MuiAlert from "@material-ui/lab/Alert";
-import { RootState } from "../store";
-import { useSelector, useDispatch } from "react-redux";
-import { clearAlert } from "../features/globals/GlobalSlice";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import { Theme } from "@material-ui/core";
+import MuiAlert, { Color } from "@material-ui/lab/Alert";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { clearAlert } from "../features/globals/GlobalSlice";
+import { RootState } from "../store";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     snackbar: {
       bottom: 90

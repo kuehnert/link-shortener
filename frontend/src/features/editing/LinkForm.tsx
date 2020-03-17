@@ -3,9 +3,8 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 import { ShortLinkBase } from "features/links/ShortLinkSlice";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
-import React from "react";
-import { Link } from "react-router-dom";
 import myhistory from "myhistory";
+import React from "react";
 // import { isValidShortname, isValidURL } from "../../utils/helpers";
 
 const blankValues: ShortLinkBase = {

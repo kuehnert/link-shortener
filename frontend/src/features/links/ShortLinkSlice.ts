@@ -31,6 +31,12 @@ export const slice = createSlice({
   name: "shortlinks",
   initialState,
   reducers: {
+    clickShortLinkSuccess(state, action: PayloadAction<ShortLink>) {
+      const index = state.list.findIndex(l => l.id === action.payload.id);
+      if (index >= 0) {
+        state.list[index].hits += 1;
+      }
+    },
     fetchShortLinksSuccess(state, action: PayloadAction<ShortLink[]>) {
       state.list = action.payload;
     },
@@ -57,9 +63,10 @@ export const slice = createSlice({
 });
 
 export const {
-  fetchShortLinksSuccess,
+  clickShortLinkSuccess,
   createShortLinkSuccess,
   deleteShortLinkSuccess,
+  fetchShortLinksSuccess,
   updateShortLinkSuccess
 } = slice.actions;
 export default slice.reducer;
@@ -168,6 +175,20 @@ export const repairShortLinks = (): AppThunk => async dispatch => {
       setAlert({
         type: "error",
         message: "ShortLinks konnten nicht repariert werden"
+      })
+    );
+  }
+};
+
+export const clickShortLink = (link: ShortLink): AppThunk => async dispatch => {
+  try {
+    await lsApi.post(`/shortlinks/${link.id}/click`, null, authHeaders());
+    dispatch(clickShortLinkSuccess(link));
+  } catch (error) {
+    dispatch(
+      setAlert({
+        type: "error",
+        message: "ShortLink Klicks konnten nicht erhöht werden."
       })
     );
   }

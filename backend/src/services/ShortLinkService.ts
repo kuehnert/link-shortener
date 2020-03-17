@@ -73,6 +73,13 @@ export default class ShortLinkService {
     return shortlink;
   }
 
+  // CLICK
+  async click(shortlinkId: string): Promise<void> {
+    const shortLink = await this.ShortLink.findOne({ _id: shortlinkId });
+    shortLink.hits += 1;
+    shortLink.save();
+  }
+
   // FETCH missing icons
   async repairAll(): Promise<void> {
     const links = await this.ShortLink.find();

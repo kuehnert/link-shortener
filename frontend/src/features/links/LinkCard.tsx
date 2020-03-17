@@ -7,7 +7,11 @@ import {
   Typography
 } from "@material-ui/core";
 import { Delete as DeleteIcon, Edit as EditIcon } from "@material-ui/icons";
-import { ShortLink, deleteShortLink } from "features/links/ShortLinkSlice";
+import {
+  ShortLink,
+  deleteShortLink,
+  clickShortLink
+} from "features/links/ShortLinkSlice";
 import React from "react";
 import history from "../../myhistory";
 import CopyLink from "./CopyLink";
@@ -24,7 +28,14 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    card: { margin: theme.spacing(1), width: "280px" },
+    card: {
+      margin: theme.spacing(1),
+      width: "280px",
+      "&:hover": {
+        backgroundColor: theme.palette.grey[100],
+        boxShadow: "6px 6px 12px 0px rgba(0,0,0,0.4)"
+      }
+    },
     header: {
       padding: theme.spacing(1),
       paddingBottom: 0,
@@ -56,7 +67,8 @@ const LinkCard: React.FC<Props> = ({ shortLink }) => {
   const classes = useStyles();
   const user = useSelector(getUser);
 
-  const handleClick = (event: React.MouseEvent) => {
+  const handleClick = () => {
+    dispatch(clickShortLink(shortLink));
     window.location.href = weburl;
   };
 
@@ -96,7 +108,7 @@ const LinkCard: React.FC<Props> = ({ shortLink }) => {
   };
 
   return (
-    <Card key={shortname} className={classes.card} raised>
+    <Card key={shortname} className={classes.card} raised elevation={2}>
       <CardHeader
         className={classes.header}
         title={title}

@@ -56,6 +56,15 @@ export class ShortLinksController {
     await this.shortlinkService.delete(id);
   }
 
+  // CLICK
+  @Post("/:shortlinkId/click")
+  @Status(204)
+  async clickShortLink(
+    @Required() @PathParams("shortlinkId") id: string
+  ): Promise<void> {
+    await this.shortlinkService.click(id);
+  }
+
   // POST Repair
   @Post("/repair")
   @Status(204)

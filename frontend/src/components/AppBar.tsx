@@ -1,4 +1,4 @@
-import { IconButton, Theme } from "@material-ui/core";
+import { Theme } from "@material-ui/core";
 import MUIAppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
@@ -8,8 +8,8 @@ import { getUser } from "features/users/UserSlice";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import SignOutButton from "./SignOutButton";
 import MainMenu from "./MainMenu";
+import SignOutButton from "./SignOutButton";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
