@@ -1,4 +1,4 @@
-function authHeader() {
+export function authHeader() {
   const token = localStorage.getItem("token");
 
   if (token) {
@@ -8,4 +8,6 @@ function authHeader() {
   }
 }
 
-export default authHeader;
+export function authHeaders() {
+  return { headers: authHeader() };
+}

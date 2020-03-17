@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Card,
   CardActions,
   CardContent,
@@ -8,44 +7,74 @@ import {
   Typography
 } from "@material-ui/core";
 import { Delete as DeleteIcon, Edit as EditIcon } from "@material-ui/icons";
-import { ShortLink } from "features/links/ShortLinkSlice";
+import { ShortLink, deleteShortLink } from "features/links/ShortLinkSlice";
 import React from "react";
 import history from "../../myhistory";
 import CopyLink from "./CopyLink";
-import PageLink from "./PageLink";
+// import PageLink from "./PageLink";
 import { getUser } from "features/users/UserSlice";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import IconAvatar from "./IconAvatar";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
+import { Theme } from "@material-ui/core";
 
 interface Props {
-  shortlink: ShortLink;
+  shortLink: ShortLink;
 }
 
-const LinkCard: React.FC<Props> = ({ shortlink }) => {
-  const { title, shortname, weburl, description } = shortlink;
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    card: { margin: theme.spacing(1), width: "280px" },
+    header: {
+      padding: theme.spacing(1),
+      paddingBottom: 0,
+      cursor: "pointer"
+    },
+    content: {
+      padding: 0
+    },
+    actions: {
+      position: "relative",
+      backgroundColor: theme.palette.grey[200],
+      color: "black",
+      margin: 0,
+      marginTop: theme.spacing(1),
+      padding: 0,
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2)
+    },
+    hits: {
+      position: "absolute",
+      right: theme.spacing(2)
+    }
+  })
+);
+
+const LinkCard: React.FC<Props> = ({ shortLink }) => {
+  const { icon, title, shortname, description, weburl } = shortLink;
+  const dispatch = useDispatch();
+  const classes = useStyles();
   const user = useSelector(getUser);
 
-  const avatar = (
-    <Avatar
-      src={`https://besticon-demo.herokuapp.com/icon?url=${weburl}&size=32..128..256`}
-      className="avatar"
-    />
-  );
+  const handleClick = (event: React.MouseEvent) => {
+    window.location.href = weburl;
+  };
 
-  // function onShortLinkDelete({ shortname }: ShortLink) {
-  //   deleteShortLink({ shortname });
-  // }
-
-  function onShortLinkEdit({ shortname }: ShortLink) {
-    history.push(`/shortlinks/${shortname}/edit`);
+  function handleShortLinkDelete() {
+    dispatch(deleteShortLink(shortLink));
   }
 
-  const renderButtons = (shortlink: ShortLink) => {
+  function handleShortLinkEdit() {
+    history.push(`/shortLinks/${shortLink.shortname}/edit`);
+  }
+
+  const renderButtons = (shortLink: ShortLink) => {
     return (
-      <CardActions className="CardActions" disableSpacing>
+      <CardActions className={classes.actions}>
         <IconButton
           size="small"
           color="secondary"
-          onClick={() => onShortLinkEdit(shortlink)}
+          onClick={handleShortLinkEdit}
         >
           <EditIcon />
         </IconButton>
@@ -53,35 +82,35 @@ const LinkCard: React.FC<Props> = ({ shortlink }) => {
         <IconButton
           size="small"
           color="primary"
-          // onClick={() => onShortLinkDelete(shortlink)}
+          onClick={handleShortLinkDelete}
         >
           <DeleteIcon />
         </IconButton>
 
-        <Typography className="hits" color="textSecondary">
-          {shortlink.hits} hit
-          {shortlink.hits > 1 && "s"}
+        <Typography className={classes.hits} color="textSecondary">
+          {shortLink.hits} hit
+          {shortLink.hits > 1 && "s"}
         </Typography>
       </CardActions>
     );
   };
 
   return (
-    <Card key={shortname} className="ShortLinkCard">
+    <Card key={shortname} className={classes.card} raised>
       <CardHeader
-        className="CardHeader"
+        className={classes.header}
         title={title}
-        avatar={avatar}
+        avatar={icon && <IconAvatar icon={icon} />}
         subheader={description}
+        onClick={handleClick}
       />
 
-      <CardContent className="CardContent">
-        <PageLink shortlink={shortlink} />
-
+      <CardContent className={classes.content}>
+        {/* <PageLink shortLink={shortLink} /> */}
         <CopyLink shortname={shortname} />
       </CardContent>
 
-      {user && renderButtons(shortlink)}
+      {user && renderButtons(shortLink)}
     </Card>
   );
 };

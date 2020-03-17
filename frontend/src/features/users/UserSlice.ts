@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { decode } from "jsonwebtoken";
 import lsApi from "../../apis/lsApi";
 import { AppThunk, RootState } from "../../store";
-import authHeader from "../../utils/authHeader";
+import { authHeaders } from "../../utils/authHeader";
 import { setAlert } from "../globals/GlobalSlice";
 
 export interface User {
@@ -183,7 +183,7 @@ export const login = (values: LoginValues): AppThunk => async dispatch => {
 
 export const logout = (): AppThunk => async dispatch => {
   try {
-    await lsApi.post("/users/logout", null, { headers: authHeader() });
+    await lsApi.post("/users/logout", null, authHeaders());
   } catch ({ response }) {
     dispatch(logoutFailed(response));
     return;
@@ -246,9 +246,11 @@ export const updateUser = (values: User): AppThunk => async dispatch => {
   let user;
 
   try {
-    const response = await lsApi.patch(`/users/${values.id}`, values, {
-      headers: authHeader()
-    });
+    const response = await lsApi.patch(
+      `/users/${values.id}`,
+      values,
+      authHeaders()
+    );
     user = response.data;
     localStorage.setItem("user", JSON.stringify(user));
   } catch ({ response }) {

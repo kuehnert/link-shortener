@@ -3,11 +3,11 @@ import { ShortLink } from "features/links/ShortLinkSlice";
 import React from "react";
 
 export interface Props {
-  shortlink: ShortLink;
+  shortLink: ShortLink;
 }
 
-const ShortLinkLink: React.FC<Props> = ({ shortlink }) => {
-  const { weburl } = shortlink;
+const ShortLinkLink: React.FC<Props> = ({ shortLink }) => {
+  const { weburl } = shortLink;
   const formattedURL = weburl.replace(/^(https:\/\/)?(www\.)?|\/.*$/g, "");
 
   return (

@@ -16,20 +16,17 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(0.5)
     },
     button: {
+      width: "fill-available",
       margin: theme.spacing(1),
       backgroundColor: "#336",
       color: "white",
       textTransform: "initial",
       fontFamily:
-        "Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New"
-    },
-    buttonHover: {
-      backgroundColor: "green !important",
-      color: "#FFF"
-    },
-    label: {
-      marginLeft: "18px",
-      marginRight: "18px"
+        "Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New",
+      "&:hover": {
+        backgroundColor: "green !important",
+        color: "#FFF"
+      }
     },
     iconSmall: {
       fontSize: 16,
@@ -66,7 +63,7 @@ const CopyLink: React.FC<Props> = ({ shortname }) => {
     <>
       <Button
         variant="contained"
-        classes={{ root: classes.button, label: classes.label }}
+        className={classes.button}
         size="small"
         onClick={() => handleClick(url)}
       >
@@ -85,7 +82,11 @@ const CopyLink: React.FC<Props> = ({ shortname }) => {
         ContentProps={{
           "aria-describedby": "message-id"
         }}
-        message={<span id="message-id">In Zwischenablage kopiert: {url}</span>}
+        message={
+          <span id="message-id">
+            &quot;{url}&quot; in die Zwischenablage kopiert
+          </span>
+        }
         action={[
           <IconButton
             key="close"

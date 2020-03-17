@@ -4,12 +4,12 @@ import Button from "@material-ui/core/Button";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { Menu as MenuIcon } from "@material-ui/icons";
 import { getUser } from "features/users/UserSlice";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SignOutButton from "./SignOutButton";
+import MainMenu from "./MainMenu";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,10 +18,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     grow: {
       flexGrow: 1
-    },
-    menuButton: {
-      marginLeft: -12,
-      marginRight: 20
     },
     title: {
       display: "none",
@@ -40,15 +36,7 @@ const AppBar: React.FC = () => {
     <div className={classes.root}>
       <MUIAppBar position="static">
         <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-            component={Link}
-            to="/"
-          >
-            <MenuIcon>Home</MenuIcon>
-          </IconButton>
+          <MainMenu />
 
           <Typography
             className={classes.title}

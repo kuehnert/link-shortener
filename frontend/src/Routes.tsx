@@ -5,18 +5,24 @@ import LoginPage from "./features/users/LoginPage";
 import SignUpPage from "./features/users/SignUpPage";
 import SettingsPage from "./features/users/SettingsPage";
 import NotFound from "./components/NotFound";
-// import PageCreate from "./components/PageCreate";
-// import PageEdit from "./components/PageEdit";
+import CreateLinkPage from "./features/editing/CreateLinkPage";
+import EditLinkPage from "./features/editing/EditLinkPage";
+import ProtectedRoute from "components/ProtectedRoute";
 
 const Routes: React.FC = () => (
   <Switch>
     <Route path="/" exact component={ShortLinksPage} />
     <Route path="/login" exact component={LoginPage} />
     <Route path="/signup" exact component={SignUpPage} />
-    <Route path="/settings" exact component={SettingsPage} />
 
-    {/* <Route path="/pages/new" exact component={PageCreate} /> */}
-    {/* <Route path="/pages/:shortname/edit" exact component={PageEdit} /> */}
+    <ProtectedRoute path="/settings" exact component={SettingsPage} />
+
+    <ProtectedRoute path="/shortlinks/new" exact component={CreateLinkPage} />
+    <ProtectedRoute
+      path="/shortlinks/:shortname/edit"
+      exact
+      component={EditLinkPage}
+    />
 
     <Route component={NotFound} />
   </Switch>

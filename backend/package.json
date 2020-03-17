@@ -1,6 +1,6 @@
 {
   "name": "mso-link-shortener-backend",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Link shortener service for Marienschule Opladen",
   "main": "index.js",
   "scripts": {
@@ -8,8 +8,7 @@
     "build": "npm run clean && npm run tsc && npm run copy",
     "tsc": "tsc --project tsconfig.json",
     "tsc:w": "tsc --project tsconfig.json -w",
-    "start:dev": "nodemon --watch \"src/**/*.ts\" --ignore \"node_modules/**/*\" --exec ts-node src/index.ts",
-    "start": "ts-node src/index.ts",
+    "start": "nodemon --watch \"src/**/*.ts\" --ignore \"node_modules/**/*\" --exec ts-node src/index.ts",
     "start:prod": "cross-env NODE_ENV=production node dist/index.js",
     "deploy:production": "shipit production deploy",
     "deploy:staging": "shipit staging deploy"
@@ -23,6 +22,7 @@
     "@tsed/di": "5.44.6",
     "@tsed/mongoose": "5.44.6",
     "ajv": "6.12.0",
+    "axios": "0.19.2",
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
     "compression": "1.7.4",

@@ -17,7 +17,6 @@ export class LoadUserMiddleware {
 
   async use(
     @Required() @HeaderParams("authorization") authorization: string,
-    @Required() @PathParams("userId") userId: string,
     @Context() context: Context
   ) {
     $log.debug("LoadUserMiddleware");
@@ -25,7 +24,7 @@ export class LoadUserMiddleware {
     let decoded;
     try {
       // Decode token, cut "Bearer "
-      const secret = process.env.JWT_SECRET || "Dummy";
+      const secret = process.env.JWT_SECRET;
       const token = authorization.substr(7);
       decoded = verify(token, secret) as TokenContent;
     } catch (err) {
@@ -37,11 +36,6 @@ export class LoadUserMiddleware {
     if (currentUser == null) {
       $log.debug("currentUser == null");
       throw new Unauthorized("Not authenticated");
-    }
-
-    if (currentUser._id.toString() !== userId) {
-      $log.debug("currentUser._id !== userId");
-      throw new Forbidden("Forbidden");
     }
 
     context.set("currentUser", currentUser);
