@@ -14,9 +14,9 @@ import { verify } from "jsonwebtoken";
 import { omit, pick } from "lodash";
 import { NotFound } from "ts-httpexceptions";
 import { $log } from "ts-log-debug";
-import LoadUserMiddleware from "../middlewares/LoadUserMiddleware";
-import User, { BaseUser, userAttributes } from "../models/User";
-import UserService from "../services/UserService";
+import LoadUserMiddleware from "../../middlewares/LoadUserMiddleware";
+import User, { BaseUser, userAttributes } from "../../models/User";
+import UserService from "../../services/UserService";
 import { TokenContent } from "src/models/Token";
 
 interface UserSafe {

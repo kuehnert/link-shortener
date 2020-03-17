@@ -26,17 +26,13 @@ const rootDir = __dirname;
   },
   logger: {
     debug: false,
-    logRequest: true,
-    requestFields: [
-      "duration",
-      "method",
-      "params",
-      "query",
-      "url"
-    ]
+    level: "info",
+    logRequest: false,
+    requestFields: ["duration", "method", "params", "query", "url"]
   },
   mount: {
-    "/api": join(rootDir, "controllers/*.ts")
+    "/api": join(rootDir, "controllers", "api", "*.ts"),
+    "/": join(rootDir, "controllers", "ForwardController.ts")
   },
   mongoose: {
     url: process.env.MONGODB_URL,

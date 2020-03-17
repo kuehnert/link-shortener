@@ -29,6 +29,17 @@ export default class ShortLinkService {
     return shortlink;
   }
 
+  // FETCH_BY_SHORTNAME
+  async fetchByShortnameAndInc(shortname: string): Promise<ShortLink> {
+    const link = await this.ShortLink.findOne({ shortname });
+
+    if (link) {
+      link.hits += 1;
+      link.save();
+      return link;
+    }
+  }
+
   // CREATE
   async create(values: ShortLinkBase): Promise<ShortLink> {
     const permitted = pick(values, shortlinkAttributes);

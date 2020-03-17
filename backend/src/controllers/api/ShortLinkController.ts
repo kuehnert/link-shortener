@@ -10,9 +10,9 @@ import {
   UseBefore,
   Delete
 } from "@tsed/common";
-import LoadUserMiddleware from "../middlewares/LoadUserMiddleware";
-import ShortLink, { ShortLinkBase } from "../models/ShortLink";
-import ShortLinkService from "../services/ShortLinkService";
+import LoadUserMiddleware from "../../middlewares/LoadUserMiddleware";
+import ShortLink, { ShortLinkBase } from "../../models/ShortLink";
+import ShortLinkService from "../../services/ShortLinkService";
 
 @Controller("/shortlinks")
 export class ShortLinksController {
