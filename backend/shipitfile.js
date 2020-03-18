@@ -5,16 +5,16 @@ module.exports = shipit => {
     default: {
       dirToCopy: "backend",
       servers: "deploy@mso.onl",
-      repositoryUrl: "git@github.com:kuehnert/linkshortener.git",
+      repositoryUrl: "git@github.com:kuehnert/link-shortener.git",
       keepReleases: 5,
       deleteOnRollback: false
     },
     staging: {
-      deployTo: "/home/deploy/sites/linkshortener-staging",
+      deployTo: "/home/deploy/sites/linkshortener-backend-staging",
       branch: "staging"
     },
     production: {
-      deployTo: "/home/deploy/sites/linkshortener",
+      deployTo: "/home/deploy/sites/linkshortener-backend",
       branch: "master"
     }
   });

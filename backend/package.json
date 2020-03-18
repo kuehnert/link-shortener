@@ -4,14 +4,15 @@
   "description": "Link shortener service for Marienschule Opladen",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf dist/* '{src,test}/**/*.{js,js.map}'",
     "build": "npm run clean && npm run tsc && npm run copy",
-    "tsc": "tsc --project tsconfig.json",
-    "tsc:w": "tsc --project tsconfig.json -w",
-    "start": "nodemon --watch \"src/**/*.ts\" --ignore \"node_modules/**/*\" --exec ts-node src/index.ts",
-    "start:prod": "cross-env NODE_ENV=production node dist/index.js",
+    "clean": "rimraf dist/* '{src,test}/**/*.{js,js.map}'",
+    "copy": "cp -r src/seeds dist/seeds",
     "deploy:production": "shipit production deploy",
-    "deploy:staging": "shipit staging deploy"
+    "deploy:staging": "shipit staging deploy",
+    "start:prod": "cross-env NODE_ENV=production node dist/index.js",
+    "start": "nodemon --watch \"src/**/*.ts\" --ignore \"node_modules/**/*\" --exec ts-node src/index.ts",
+    "tsc:w": "tsc --project tsconfig.json -w",
+    "tsc": "tsc --project tsconfig.json"
   },
   "author": "Matthias Kühnert",
   "license": "ISC",
