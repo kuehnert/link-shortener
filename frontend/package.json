@@ -11,8 +11,8 @@
     "eject": "react-scripts eject",
     "lint": "tsc --noEmit && eslint '*/**/*.{ts,tsx}'",
     "lint:fix": "npm run lint --quiet --fix",
-    "deploy:production": "npm run clean && npm run build && rsync --archive --partial --compress --delete ./build/ deploy@marienschule.com:/home/deploy/sites/sokrates --itemize-changes",
-    "deploy:staging": "npm run clean && env-path -p .env.staging.local npm run build && rsync --archive --partial --compress --delete ./build/ deploy@marienschule.com:/home/deploy/sites/sokrates-staging --itemize-changes"
+    "deploy:production": "npm run clean && npm run build && rsync --archive --partial --compress --delete ./build/ deploy@mso.onl:/home/deploy/sites/linkshortener-webapp --itemize-changes",
+    "deploy:staging": "npm run clean && env-path -p .env.staging.local npm run build && rsync --archive --partial --compress --delete ./build/ deploy@mso.onl:/home/deploy/sites/linkshortener-webapp-staging --itemize-changes"
   },
   "eslintConfig": {
     "extends": "react-app"
