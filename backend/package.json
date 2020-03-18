@@ -4,7 +4,7 @@
   "description": "Link shortener service for Marienschule Opladen",
   "main": "index.js",
   "scripts": {
-    "build": "npm run clean && npm run tsc && npm run copy",
+    "build": "npm run clean && npm run tsc",
     "clean": "rimraf dist/* '{src,test}/**/*.{js,js.map}'",
     "copy": "cp -r src/seeds dist/seeds",
     "deploy:production": "shipit production deploy",
