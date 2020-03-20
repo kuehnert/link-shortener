@@ -1,15 +1,15 @@
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
-import { Menu as MenuIcon } from "@material-ui/icons";
+import { AccountCircle } from "@material-ui/icons";
 import { repairShortLinks } from "features/links/ShortLinkSlice";
+import { logout } from "features/users/UserSlice";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() =>
   createStyles({
-    menuButton: {
-      marginLeft: -12,
-      marginRight: 20
+    colorInherit: {
+      color: "white"
     }
   })
 );
@@ -28,23 +28,25 @@ const MainMenu: React.FC = () => {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   return (
-    <div>
+    <>
       <IconButton
-        aria-controls="simple-menu"
+        aria-label="account of current user"
+        aria-controls="menu-appbar"
         aria-haspopup="true"
-        className={classes.menuButton}
-        color="inherit"
-        aria-label="Menu"
         onClick={handleClick}
+        className={classes.colorInherit}
       >
-        <MenuIcon>Home</MenuIcon>
+        <AccountCircle />
       </IconButton>
-
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -53,8 +55,9 @@ const MainMenu: React.FC = () => {
         onClose={handleClose}
       >
         <MenuItem onClick={handleRepair}>Icons reparieren</MenuItem>
+        <MenuItem onClick={handleLogout}>Abmelden</MenuItem>
       </Menu>
-    </div>
+    </>
   );
 };
 

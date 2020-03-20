@@ -4,12 +4,12 @@ import { $log } from "ts-log-debug";
 import { NotFound } from "ts-httpexceptions";
 
 @Controller("/")
-export class ForwardController {
+export class RedirectController {
   constructor(private readonly shortLinkService: ShortLinkService) {}
 
   @Get("/")
   async getHome(@Response() response: Response) {
-    $log.info('ForwardController @Get("/")');
+    $log.info('RedirectController @Get("/")');
     response.redirect(process.env.REACT_URL);
   }
 
@@ -18,13 +18,13 @@ export class ForwardController {
     @PathParams("path") path: string,
     @Response() response: Response
   ): Promise<void> {
-    $log.info(`ForwardController @Get(/${path})`);
+    $log.info(`RedirectController @Get(/${path})`);
     const shortLink = await this.shortLinkService.fetchByShortnameAndInc(path);
 
     if (shortLink) {
       response.redirect(shortLink.weburl);
     } else {
-      throw new NotFound(`Seite nicht gefunden: ${path}`);
+      response.redirect(process.env.REACT_URL + `?notfound=${path}`);
     }
   }
 }

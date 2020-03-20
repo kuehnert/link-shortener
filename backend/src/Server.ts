@@ -32,7 +32,7 @@ const rootDir = __dirname;
   },
   mount: {
     "/api": join(rootDir, "controllers", "api", "*.ts"),
-    "/": join(rootDir, "controllers", "ForwardController.ts")
+    "/": join(rootDir, "controllers", "RedirectController.ts")
   },
   mongoose: {
     url: process.env.MONGODB_URL,

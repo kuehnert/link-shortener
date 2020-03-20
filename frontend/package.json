@@ -11,7 +11,7 @@
     "eject": "react-scripts eject",
     "lint": "tsc --noEmit && eslint '*/**/*.{ts,tsx}'",
     "lint:fix": "npm run lint --quiet --fix",
-    "deploy:production": "npm run clean && npm run build && rsync --archive --partial --compress --delete ./build/ deploy@mso.onl:/home/deploy/sites/linkshortener-webapp --itemize-changes",
+    "deploy:production": "npm run clean && env-path -p .env.production.local npm run build && rsync --archive --partial --compress --delete ./build/ deploy@mso.onl:/home/deploy/sites/linkshortener-webapp --itemize-changes",
     "deploy:staging": "npm run clean && env-path -p .env.staging.local npm run build && rsync --archive --partial --compress --delete ./build/ deploy@mso.onl:/home/deploy/sites/linkshortener-webapp-staging --itemize-changes"
   },
   "eslintConfig": {
@@ -34,8 +34,8 @@
     "redux": "4.0.5"
   },
   "devDependencies": {
-    "@types/node": "13.9.0",
     "@types/jsonwebtoken": "8.3.8",
+    "@types/node": "13.9.0",
     "@types/react": "16.9.23",
     "@types/react-dom": "16.9.5",
     "@types/react-redux": "7.1.7",
@@ -43,6 +43,7 @@
     "@types/redux-mock-store": "1.0.2",
     "@typescript-eslint/eslint-plugin": "2.22.0",
     "@typescript-eslint/parser": "2.22.0",
+    "env-path": "1.0.7",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.10.0",
     "eslint-plugin-prettier": "3.1.2",

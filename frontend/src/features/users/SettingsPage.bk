@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 import { ErrorMessage, Field, Form, Formik, FormikErrors } from "formik";
 import { TextField } from "formik-material-ui";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Loading from "../../components/Loading";
 import { RootState } from "../../store";
 import { defaultUser, User } from "./UserSlice";
@@ -53,14 +53,14 @@ const validate = (
 
 const SettingsPage: React.FC = () => {
   const { user, error } = useSelector((state: RootState) => state.users);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const classes = useStyles();
   const initialValues = { ...defaultUser, ...user };
 
-  const handleSubmit = async (values: User) => {
-    // await dispatch(updateUser(values));
-    // history.push("/terms");
-  };
+  // const handleSubmit = async (values: User) => {
+  // await dispatch(updateUser(values));
+  // history.push("/terms");
+  // };
 
   if (user == null) {
     return <Loading />;
@@ -82,6 +82,8 @@ const SettingsPage: React.FC = () => {
               label="Vorname"
               placeholder="Wilhelm"
               component={TextField}
+              margin="normal"
+              fullWidth
             />
             <ErrorMessage name="firstname" />
 
@@ -90,6 +92,8 @@ const SettingsPage: React.FC = () => {
               label="Nachname"
               placeholder="Lempel"
               component={TextField}
+              margin="normal"
+              fullWidth
             />
             <ErrorMessage name="lastname" />
 
@@ -98,6 +102,8 @@ const SettingsPage: React.FC = () => {
               label="E-Mail"
               placeholder="lehrer.lempel@busch-schule.de"
               component={TextField}
+              fullWidth
+              margin="normal"
               autoComplete="off"
             />
             <ErrorMessage name="email" />

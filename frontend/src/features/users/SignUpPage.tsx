@@ -15,6 +15,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { RootState } from "../../store";
 import UserForm from "./UserForm";
 import { signUp, SignUpValues } from "./UserSlice";
+import myhistory from "myhistory";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,8 +51,8 @@ const SignUpPage: React.FC = () => {
   const classes = useStyles();
 
   const handleSubmit = async (values: SignUpValues) => {
-    await dispatch(signUp(values));
-    // history.push("/");
+    dispatch(signUp(values));
+    myhistory.push("/");
   };
 
   return (

@@ -1,15 +1,11 @@
-import { Theme } from "@material-ui/core";
-import MUIAppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
+import { AppBar as MuiAppBar, Theme } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+import { Avatar, Typography, IconButton, Toolbar } from "@material-ui/core";
 import { getUser } from "features/users/UserSlice";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import MainMenu from "./MainMenu";
-import SignOutButton from "./SignOutButton";
+import SignInButton from "./SignInButton";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,8 +15,14 @@ const useStyles = makeStyles((theme: Theme) =>
     grow: {
       flexGrow: 1
     },
+    menuButton: {
+      marginLeft: -theme.spacing(2),
+      marginRight: theme.spacing(1)
+    },
     title: {
       display: "none",
+      color: "white",
+      fontWeight: "normal",
       [theme.breakpoints.up("sm")]: {
         display: "block"
       }
@@ -34,17 +36,25 @@ const AppBar: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <MUIAppBar position="static">
+      <MuiAppBar position="static">
         <Toolbar>
-          <MainMenu />
+          <IconButton
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Menu"
+          >
+            <Avatar alt="MSO Link Shortener" src="/launcher-icon-1x.png" />
+          </IconButton>
 
           <Typography
             className={classes.title}
-            variant="h6"
+            variant="h5"
             color="inherit"
             noWrap
           >
-            Marienschule Links
+            Marienschule Opladen – ShortLinks
           </Typography>
 
           {/* <div className={classes.grow} />
@@ -52,14 +62,10 @@ const AppBar: React.FC = () => {
 
           <div className={classes.grow} />
 
-          {!user && (
-            <Button color="inherit" component={Link} to="/login">
-              Anmelden
-            </Button>
-          )}
-          {user && <SignOutButton />}
+          {!user && <SignInButton />}
+          {user && <MainMenu />}
         </Toolbar>
-      </MUIAppBar>
+      </MuiAppBar>
     </div>
   );
 };

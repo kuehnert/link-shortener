@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: {
       margin: theme.spacing(1),
-      width: "280px",
+      // width: "280px",
       transition: "transform .5s, box-shadow .5s",
       "&:hover": {
         backgroundColor: theme.palette.grey[100],
