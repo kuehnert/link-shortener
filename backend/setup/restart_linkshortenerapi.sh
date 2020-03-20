@@ -1,4 +1,6 @@
-systemctl restart linkshortenerapi-staging
+#!/bin/sh
+# systemctl restart linkshortenerapi-staging
 systemctl restart linkshortenerapi
 
-# /lib/systemd/system/sokratesapi.service
+# /lib/systemd/system/linkshortenerapi.service
+# sudo systemctl start linkshortenerapi

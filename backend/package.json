@@ -1,6 +1,6 @@
 {
   "name": "mso-link-shortener-backend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Link shortener service for Marienschule Opladen",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "copy": "cp -r src/seeds dist/seeds",
     "deploy:production": "shipit production deploy",
     "deploy:staging": "shipit staging deploy",
-    "start:prod": "cross-env NODE_ENV=production node dist/index.js",
+    "start:production": "cross-env NODE_ENV=production node dist/index.js",
     "start": "nodemon --watch \"src/**/*.ts\" --ignore \"node_modules/**/*\" --exec ts-node src/index.ts",
     "tsc:w": "tsc --project tsconfig.json -w",
     "tsc": "tsc --project tsconfig.json"

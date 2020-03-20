@@ -1,0 +1,1 @@
+deploy ALL=NOPASSWD:/home/deploy/bin/restart_linkshortener
