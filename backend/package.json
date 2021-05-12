@@ -19,7 +19,7 @@
   "dependencies": {
     "@tsed/ajv": "5.44.9",
     "@tsed/common": "5.44.9",
-    "@tsed/core": "5.44.9",
+    "@tsed/core": "5.65.7",
     "@tsed/di": "5.44.9",
     "@tsed/mongoose": "5.44.9",
     "ajv": "6.12.0",
